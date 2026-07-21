@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "aCXKbI2/e5HzsAnAuSDxnuzF2Pha/tyr3pNSMU1cTVs=",
+  "Source": "Buslink.Api",
+  "BasePath": "_content/Buslink.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

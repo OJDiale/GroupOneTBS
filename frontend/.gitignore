@@ -1,0 +1,21 @@
+# React / Vite
+node_modules/
+dist/
+.env
+
+# ASP.NET
+bin/
+obj/
+
+# Visual Studio
+.vs/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

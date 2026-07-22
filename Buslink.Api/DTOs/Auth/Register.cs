@@ -5,6 +5,10 @@ namespace Buslink.Api.DTOs.Auth;
 public class RegisterPassengerDto
 {
     [Required]
+    [RegularExpression(@"^\d{13}$",
+    ErrorMessage = "South African ID Number must be exactly 13 digits.")]
+    public string UserId { get; set; } = string.Empty;
+    [Required]
     [MaxLength(100)]
     public string Name { get; set; } = string.Empty;
 
@@ -17,7 +21,10 @@ public class RegisterPassengerDto
     public string Email { get; set; } = string.Empty;
 
     [Phone]
-    public string? PhoneNumber { get; set; }
+    [Required]
+    [RegularExpression(@"^\d{10}$",
+    ErrorMessage = "Phone number must be exactly 10 digits.")]
+    public string PhoneNumber { get; set; } = string.Empty;
 
     [Required]
     [MinLength(6)]

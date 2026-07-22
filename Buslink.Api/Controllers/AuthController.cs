@@ -40,17 +40,26 @@ public class AuthController : ControllerBase
                 message = "Email is already registered."
             });
         }
+        bool idExists = await _context.Passengers
+              .AnyAsync(x => x.UserId == dto.UserId);
+
+        if (idExists)
+        {
+            return BadRequest(new
+            {
+                message = "South African ID Number already exists."
+            });
+        }
 
         var passenger = new Passenger
         {
+            UserId = dto.UserId,
             Name = dto.Name,
             Surname = dto.Surname,
             Email = dto.Email,
             PhoneNumber = dto.PhoneNumber,
             PasswordHash = string.Empty
-            
         };
-
         passenger.PasswordHash =
             _passwordHasher.HashPassword(passenger, dto.Password);
 
@@ -63,5 +72,7 @@ public class AuthController : ControllerBase
             message = "Passenger registered successfully."
         });
     }
+
+
 
 }

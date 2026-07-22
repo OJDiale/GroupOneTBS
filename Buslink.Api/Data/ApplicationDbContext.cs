@@ -21,6 +21,10 @@ public class ApplicationDbContext : DbContext
         {
             entity.HasKey(passenger => passenger.UserId);
 
+            entity.Property(passenger => passenger.UserId)
+              .HasMaxLength(13)
+            .IsRequired();
+
             entity.Property(passenger => passenger.Name)
                 .HasMaxLength(100)
                 .IsRequired();
@@ -37,11 +41,16 @@ public class ApplicationDbContext : DbContext
                 .IsUnique();
 
             entity.Property(passenger => passenger.PhoneNumber)
-                .HasMaxLength(20);
+                .HasMaxLength(10);
 
             entity.Property(passenger => passenger.PasswordHash)
                 .HasMaxLength(500)
                 .IsRequired();
+
+            entity.Property(passenger => passenger.IsVerified)
+                .HasDefaultValue(false);
+
+           
         });
     }
 }

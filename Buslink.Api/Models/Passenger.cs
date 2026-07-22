@@ -16,4 +16,6 @@ public class Passenger
     public bool IsVerified { get; set; } = false;
 
     public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+    public Cards? Card { get; set; }
 }

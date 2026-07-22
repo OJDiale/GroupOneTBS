@@ -20,6 +20,13 @@ public class AuthController : ControllerBase
 
     private readonly JwtService _jwtService;
 
+    private string GenerateCardNumber()
+    {
+        var random = new Random();
+
+        return $"BC{DateTime.Now:yyyy}{random.Next(100000, 999999)}";
+    }
+
     public AuthController(
     ApplicationDbContext context,
     IPasswordHasher<Passenger> passwordHasher,
@@ -72,6 +79,18 @@ public class AuthController : ControllerBase
             _passwordHasher.HashPassword(passenger, dto.Password);
 
         _context.Passengers.Add(passenger);
+
+        var busCard = new Cards
+        {
+            PassengerId = passenger.UserId,
+            CardNumber = GenerateCardNumber(),
+            Balance = 0.00m,
+            Status = "Active"
+        };
+
+
+
+        _context.Cards.Add(busCard);
 
         await _context.SaveChangesAsync();
 
@@ -134,10 +153,7 @@ public class AuthController : ControllerBase
 
         if (string.IsNullOrEmpty(userId))
         {
-            return Unauthorized(new
-            {
-                message = "Invalid token."
-            });
+            return Unauthorized();
         }
 
         var passenger = await _context.Passengers

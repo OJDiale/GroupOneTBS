@@ -19,34 +19,28 @@ public class JwtService
     {
         var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.Sub, passenger.UserId),
-            new Claim(JwtRegisteredClaimNames.Email, passenger.Email),
-            new Claim("Name", passenger.Name),
+        new Claim(ClaimTypes.NameIdentifier, passenger.UserId),
+        new Claim(ClaimTypes.Name, passenger.Name),
+        new Claim(ClaimTypes.Email, passenger.Email),
 
-            new Claim(JwtRegisteredClaimNames.Sub, passenger.UserId),
-            new Claim(JwtRegisteredClaimNames.Email, passenger.Email)
-        };
+        new Claim(JwtRegisteredClaimNames.Sub, passenger.UserId)
+    };
 
         var key = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(
-                _configuration["Jwt:Key"]!));
+            Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
 
-        var credentials =
-            new SigningCredentials(
-                key,
-                SecurityAlgorithms.HmacSha256);
+        var credentials = new SigningCredentials(
+            key,
+            SecurityAlgorithms.HmacSha256);
 
-        var token =
-            new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(
-                    Convert.ToDouble(
-                        _configuration["Jwt:ExpiryMinutes"])),
-                signingCredentials: credentials);
+        var token = new JwtSecurityToken(
+            issuer: _configuration["Jwt:Issuer"],
+            audience: _configuration["Jwt:Audience"],
+            claims: claims,
+            expires: DateTime.UtcNow.AddMinutes(
+                Convert.ToDouble(_configuration["Jwt:ExpiryMinutes"])),
+            signingCredentials: credentials);
 
-        return new JwtSecurityTokenHandler()
-            .WriteToken(token);
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }

@@ -11,7 +11,10 @@ public class ApplicationDbContext : DbContext
     {
     }
 
+
     public DbSet<Passenger> Passengers => Set<Passenger>();
+    public DbSet<Cards> Cards => Set<Cards>();
+    public DbSet<Transaction> Transactions => Set<Transaction>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -50,7 +53,31 @@ public class ApplicationDbContext : DbContext
             entity.Property(passenger => passenger.IsVerified)
                 .HasDefaultValue(false);
 
-           
+
         });
+
+    modelBuilder.Entity<Cards>(entity =>
+{
+    entity.HasKey(card => card.CardId);
+
+    entity.Property(card => card.CardNumber)
+        .HasMaxLength(20)
+        .IsRequired();
+
+    entity.HasIndex(card => card.CardNumber)
+        .IsUnique();
+
+    entity.Property(card => card.Balance)
+        .HasPrecision(10, 2);
+
+    entity.Property(card => card.Status)
+        .HasMaxLength(20)
+        .IsRequired();
+
+    entity.HasOne(card => card.Passenger)
+        .WithOne(passenger => passenger.Card)
+        .HasForeignKey<Cards>(card => card.PassengerId)
+        .HasPrincipalKey<Passenger>(passenger => passenger.UserId);
+});
     }
 }

@@ -1,61 +1,46 @@
-/*export default function Header({ variant = "guest" }) {
-  return (
-    <header className="bg-blue-500 p-4 text-white">
-      <div>TshwaneRide</div>
-
-      {variant === "guest" && (
-        <div className="flex gap-3">
-  <a
-    href="/login"
-    className="rounded bg-[#545454] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#3f3f3f]"
-  >
-    Login
-  </a>
-
-  <a
-    href="/register"
-    className="rounded bg-[#2a8f5e] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#24774b]"
-  >
-    Register
-  </a>
-</div>
-      )}
-
-      {variant === "authenticated" && (
-        <div>Authenticated Header</div>
-      )}
-    </header>
-  );
-}*/
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Header({ variant = "guest" }) {
+  const [language, setLanguage] = useState("en");
+
   return (
-    <header className="bg-[#4fa9b8] px-6 py-4 text-white">
-      <div className="mx-auto flex max-w-7xl items-center justify-between">
-        <div className="text-xl font-bold">
-          TshwaneRide
-        </div>
+    <header className="bg-[#1C3B59] px-6 py-8 text-white">
+      <div className="mx-auto flex  items-center justify-between">
+        <div className="text-4xl text-left font-bold">
+        <span className="text-white">Tshwane</span>
+        <span className="text-[#EAA944]">Ride</span>
+      </div>
 
         {variant === "guest" && (
-            <div className="flex gap-3">
-                {variant === "guest" && (
-                <div className="flex gap-3">
-                    <a
-                    href="/login"
-                    className="rounded bg-[#545454] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#3f3f3f]"
-                    >
-                    Login
-                    </a>
+          <div className="flex items-center gap-3">
 
-                    <a
-                    href="/register"
-                    className="rounded bg-[#2a8f5e] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#24774b]"
-                    >
-                    Register
-                    </a>
-                </div>
-        )}
-            </div>
+            {/* Language Selector */}
+            <select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+              className="cursor-pointer appearance-none rounded bg-[#9DCEFB] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#6e8f94] focus:outline-none focus:ring-2 focus:ring-white"
+            >
+              <option value="en"> English</option>
+              <option value="zu"> IsiZulu</option>
+              <option value="tn"> Setswana</option>
+            </select>
+
+            <Link
+              to="/login"
+              className="rounded bg-[#4E8FCB] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#3f3f3f]"
+            >
+              Login
+            </Link>
+
+            <Link
+              to="/register"
+              className="rounded bg-[#2a8f5e] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#24774b]"
+            >
+              Register
+            </Link>
+
+          </div>
         )}
 
         {variant === "authenticated" && (

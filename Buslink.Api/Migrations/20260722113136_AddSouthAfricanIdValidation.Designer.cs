@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Buslink.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260722065247_AddSouthAfricanIdValidation")]
+    [Migration("20260722113136_AddSouthAfricanIdValidation")]
     partial class AddSouthAfricanIdValidation
     {
         /// <inheritdoc />

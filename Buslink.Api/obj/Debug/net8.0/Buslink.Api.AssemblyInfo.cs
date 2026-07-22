@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Buslink.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0d691df441055c54e32ccf9ff4677523644a1d26")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dbb135d2f78cad1e70f158ad88a75e678495b21a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Buslink.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Buslink.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

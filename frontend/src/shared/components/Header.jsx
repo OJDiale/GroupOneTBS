@@ -19,7 +19,7 @@ export default function Header({ variant = "guest" }) {
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
-              className="cursor-pointer appearance-none rounded bg-[#9DCEFB] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#6e8f94] focus:outline-none focus:ring-2 focus:ring-white"
+              className="cursor-pointer appearance-none rounded bg-[#9DCEFB] px-6 py-3 text-lg font-semibold text-white transition hover:bg-[#6e8f94] focus:outline-none focus:ring-2 focus:ring-white"
             >
               <option value="en"> English</option>
               <option value="zu"> IsiZulu</option>
@@ -28,14 +28,14 @@ export default function Header({ variant = "guest" }) {
 
             <Link
               to="/login"
-              className="rounded bg-[#4E8FCB] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#3f3f3f]"
+              className="rounded bg-[#4E8FCB] px-6 py-3 text-lg font-semibold text-white transition hover:bg-[#3f3f3f]"
             >
               Login
             </Link>
 
             <Link
               to="/register"
-              className="rounded bg-[#2a8f5e] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#24774b]"
+              className="rounded bg-[#2a8f5e] px-6 py-3 text-lg font-semibold text-white transition hover:bg-[#24774b]"
             >
               Register
             </Link>

@@ -62,7 +62,7 @@ export default function LoginPage() {
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
+                placeholder=""
                 className="w-[300px] bg-[#71898E] rounded-xl py-3 px-4 text-white placeholder:text-white"
                 required
               />
@@ -79,6 +79,16 @@ export default function LoginPage() {
                 </label>
               </div>
             </div>
+
+            {/* Forgot Password */}
+<div className="w-full flex justify-center">
+  <a
+    href="/forgot-password"
+    className="text-lg font-semibold text-[#595a5a] hover:underline"
+  >
+    Forgot Password?
+  </a>
+</div>
 
               {/* Submit */}
               <button

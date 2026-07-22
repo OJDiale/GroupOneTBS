@@ -1,82 +1,80 @@
 import { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import OTPInput from '../components/OTPInput';
-import Header from '../../../shared/components/Header';
+import cityBck from '../../../resources/city-back.jpeg';
 
-// Turns a raw second count into "00:30" style mm:ss text.
-// Kept OUTSIDE the component because it doesn't need any component state —
-// it's a pure function (same input always gives same output), so there's
-// no reason to redefine it on every render.
+const OTP_LENGTH = 6;
+const RESEND_COOLDOWN_SECONDS = 90;
+
+// raw seconds -> "01:30" style display
 function formatTime(totalSeconds) {
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
-  // padStart(2, '0') turns "5" into "05" — always 2 digits
   return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
 
 export default function VerifyOTP() {
-  // The full 4-digit code, reported up from the OTPInput child component
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // data handed off from ForgotPassword or Register via navigate(..., { state })
+  const { purpose = 'register', contact = '' } = location.state || {};
+
   const [otpCode, setOtpCode] = useState('');
+  const [secondsLeft, setSecondsLeft] = useState(RESEND_COOLDOWN_SECONDS);
 
-  // Countdown state — starts at 30 seconds per the design
-  const [secondsLeft, setSecondsLeft] = useState(30);
-
-  // This effect creates a ticking interval that decreases secondsLeft by 1
-  // every 1000ms, but only while there's still time left.
+  // ticking countdown; cleanup prevents stacked intervals on re-render
   useEffect(() => {
-    // If we've hit zero, don't start a new interval — just stop.
     if (secondsLeft <= 0) return;
-
-    const timer = setInterval(() => {
-      setSecondsLeft((prev) => prev - 1);
-    }, 1000);
-
-    // CLEANUP FUNCTION — this is critical and easy to forget.
-    // Every time this effect re-runs (which happens every time secondsLeft
-    // changes, because it's in the dependency array below), React first
-    // calls this cleanup to clear the PREVIOUS interval before setting up
-    // a new one. Without this, you'd stack up dozens of intervals all
-    // firing at once, and the countdown would race down far faster than
-    // 1 second per tick (a classic React bug).
+    const timer = setInterval(() => setSecondsLeft((prev) => prev - 1), 1000);
     return () => clearInterval(timer);
   }, [secondsLeft]);
 
   function handleVerify(e) {
     e.preventDefault();
-    // Not wiring up the real API call yet — that comes later when we
-    // build authApi.js. For now, just prove the code reaches this handler.
-    console.log('Verifying OTP code:', otpCode);
+    console.log('Verifying OTP code:', otpCode, 'for purpose:', purpose);
+
+    // TODO: call real verify API here first, only navigate on success
+    if (purpose === 'reset-password') {
+      navigate('/reset-password');
+    } else {
+      navigate('/login');
+    }
   }
 
   function handleResend() {
-    // Only reachable once the button is enabled (secondsLeft === 0),
-    // enforced by the `disabled` attribute below.
     console.log('Resending OTP...');
-    setSecondsLeft(30); // restart the countdown
-    setOtpCode('');     // clear whatever was typed before
+    setSecondsLeft(RESEND_COOLDOWN_SECONDS);
+    setOtpCode('');
   }
 
-  // Only allow submitting once all 4 digits are filled in
-  const isComplete = otpCode.length === 4;
+  const isComplete = otpCode.length === OTP_LENGTH;
+  const bodyText =
+    purpose === 'reset-password' ? 'to reset your password.' : 'to verify your account.';
 
   return (
-    <div className="min-h-screen bg-emerald-50 flex flex-col items-center justify-center px-4 py-8">
-        
+    <div
+      className="min-h-screen w-full flex items-center justify-center px-4"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0,0,0,.0), rgba(0,0,0,.15)), url(${cityBck})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
       <div className="w-full max-w-4xl">
-        <Header variant="authenticated" />
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-[#4fa9b8]">Verify</h1>
-          <p className="mt-3 text-sm text-[#6b8a90] max-w-2xl mx-auto">
-            Enter the 4-digit code sent to your phone to confirm your account.
-          </p>
+          <h1 className="text-center text-6xl font-bold text-[#1C3B59] drop-shadow-lg pb-8">
+            Verify
+          </h1>
         </div>
 
-        <div className="w-full rounded-3xl bg-white border-4 border-[#d9eef1] shadow-xl p-8 sm:p-10">
-          <div className="flex flex-col gap-4 rounded-3xl bg-[#ffe16c] p-5 mb-6 text-white sm:flex-row sm:items-center">
-            <span className="text-3xl">📱</span>
-            <p className="text-sm leading-snug sm:text-base">
-              We sent a <span className="font-bold">4-digit</span> code to{' '}
-              <span className="font-bold">+27 ** *** 4567</span>. Enter it below
-              to verify your account.
+        <div className="w-full rounded-3xl bg-white border border-[10px] border-[#54A4AB] shadow-xl p-5 sm:p-10">
+          <div className="flex flex-col text-center gap-2 px-2 rounded-2xl bg-[#ffe16c] p-5 mb-8 text-black sm:flex-row sm:items-center">
+            <span className="text-7xl">📱</span>
+            <p className="font-semibold px-24 mx-10">
+              We sent a <span className="font-bold">{OTP_LENGTH}-digit</span> code to{' '}
+              <span className="font-bold">{contact}</span>.<br />
+              Enter it below {bodyText}
             </p>
           </div>
 
@@ -90,7 +88,8 @@ export default function VerifyOTP() {
             type="button"
             onClick={handleVerify}
             disabled={!isComplete}
-            className="w-full rounded-lg bg-[#4fa9b8] py-3 font-bold text-white disabled:opacity-40 disabled:cursor-not-allowed"
+            className="mx-auto block w-2/5 rounded-lg bg-[#4fa9b8] py-3 font-bold text-white
+                       hover:bg-[#418d9b] transition disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Verify Account
           </button>
@@ -104,7 +103,8 @@ export default function VerifyOTP() {
               type="button"
               onClick={handleResend}
               disabled={secondsLeft > 0}
-              className="font-bold text-[#00bf63] disabled:opacity-40 disabled:cursor-not-allowed"
+              className="rounded-lg bg-[#2a8f5e] px-6 py-2 font-bold text-white
+                         hover:bg-[#24774b] transition disabled:opacity-40 disabled:cursor-not-allowed"
             >
               RESEND OTP
             </button>

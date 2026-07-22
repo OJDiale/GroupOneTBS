@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import OTPInput from '../components/OTPInput';
+import Header from '../../../shared/components/Header';
 
 // Turns a raw second count into "00:30" style mm:ss text.
 // Kept OUTSIDE the component because it doesn't need any component state —
@@ -59,7 +60,9 @@ export default function VerifyOTP() {
 
   return (
     <div className="min-h-screen bg-emerald-50 flex flex-col items-center justify-center px-4 py-8">
+        
       <div className="w-full max-w-4xl">
+        <Header variant="authenticated" />
         <div className="mb-8 text-center">
           <h1 className="text-4xl font-bold text-[#4fa9b8]">Verify</h1>
           <p className="mt-3 text-sm text-[#6b8a90] max-w-2xl mx-auto">

@@ -1,31 +1,14 @@
 ﻿import { useState } from 'react';
+import Header from '../../../shared/components/Header';
+import Footer from '../../../shared/components/Footer';
 
 export default function Welcome() {
   const [language, setLanguage] = useState('en');
 
   return (
     <div className="min-h-screen flex flex-col bg-emerald-50">
-      <header className="bg-[#4fa9b8] text-white px-6 py-4">
-        <div className="mx-auto flex max-w-7xl items-center justify-between">
-          <div className="text-xl font-bold">TshwaneRide</div>
-          <div className="flex gap-3">
-            <a
-              href="/login"
-              className="rounded bg-[#545454] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#3f3f3f]"
-            >
-              Login
-            </a>
-            <a
-              href="/register"
-              className="rounded bg-[#2a8f5e] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#24774b]"
-            >
-              Register
-            </a>
-          </div>
-        </div>
-      </header>
-
-      <main className="flex-1 flex items-center justify-center px-4 py-10">
+        <Header />
+     <main className="flex-1 flex items-center justify-center px-4 py-10">
         <div className="w-full max-w-4xl rounded-[28px] bg-white border-4 border-[#d9eef1] p-10 shadow-xl text-center sm:p-12">
           <div className="mb-8">
             <label className="block text-center text-3xl font-semibold text-[#595a5a] mb-5">
@@ -63,9 +46,7 @@ export default function Welcome() {
         </div>
       </main>
 
-      <footer className="bg-[#4fa9b8] py-4 text-center text-sm text-white">
-        <p>© 2026 TshwaneRide. All rights reserved.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -1,94 +1,86 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Lock } from 'lucide-react';
-import cityBck from '../../../resources/city-back.jpeg';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Mail } from "lucide-react";
+import Modal from "../components/Modal.jsx";
 
-export default function ResetPassword() {
+export default function ResetPasswordPage() {
   const navigate = useNavigate();
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
-  function handleSubmit(e) {
+  const handleVerify = async (e) => {
     e.preventDefault();
-    setError('');
-
-    // Basic client-side check BEFORE hitting the backend at all —
-    // no point making a network call if the two fields don't even match.
-    if (newPassword !== confirmPassword) {
-      setError("Passwords don't match.");
+    setError("");
+    if (!email) {
+      setError("Please enter your email address.");
       return;
     }
-
-    // TODO: call your real API here, e.g.
-    //   await authApi.resetPassword(newPassword);
-    console.log('Resetting password to:', newPassword);
-
-    navigate('/login'); // send them to log in with the new password
-  }
+    setSubmitting(true);
+    try {
+      // ============================================================
+      // CONNECT TO BACKEND HERE
+      //
+      // Replace this block with a real call that sends/verifies the OTP
+      // and resets the password server-side, e.g.:
+      //
+      //   const res = await fetch("/api/auth/reset-password", {
+      //     method: "POST",
+      //     headers: { "Content-Type": "application/json" },
+      //     body: JSON.stringify({ email }),
+      //   });
+      //   if (!res.ok) throw new Error("Reset failed");
+      //
+      // If your backend requires a separate OTP-entry step before the
+      // password is actually reset, add that step's UI here and only
+      // show the success popup once that final call succeeds.
+      // ============================================================
+      await new Promise((r) => setTimeout(r, 500));
+      setShowSuccess(true);
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
-    <div
-      className="min-h-screen w-full flex items-center justify-center px-4"
-      style={{
-        backgroundImage: `linear-gradient(rgba(0,0,0,.0), rgba(0,0,0,.15)), url(${cityBck})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <div className="flex flex-col items-center w-full">
-        <h1 className="mb-6 text-center text-6xl font-bold text-[#1C3B59] drop-shadow-lg pb-8">
-          Create a new password
-        </h1>
+    <div className="city-page">
+      <h1 className="page-heading">Forgot your password?</h1>
 
-        <div className="w-full max-w-lg rounded-[40px] bg-white border-[10px] border-[#54A4AB] shadow-xl p-8 sm:p-10 flex flex-col items-center">
-          <Lock className="w-14 h-14 text-[#f59e0b] mb-4" fill="#f59e0b" strokeWidth={1.5} />
+      <div className="auth-card fade-in">
+        <form onSubmit={handleVerify} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Mail size={44} color="var(--green-icon)" strokeWidth={1.6} />
+          </div>
 
-          <p className="text-center font-bold text-[#1C3B59] mb-8 max-w-md">
-            Your identity has been verified. Choose a strong new password for
-            your TshwaneRide account.
-          </p>
+          <div style={{ background: "var(--green-banner)", borderRadius: 14, padding: "14px 18px", textAlign: "center", fontSize: 13.5, fontWeight: 700, lineHeight: 1.5 }}>
+            Make sure you enter the same email address you used when you registered to receive the OTP
+          </div>
 
-          <form onSubmit={handleSubmit} className="w-full flex flex-col items-center space-y-5">
-            <div className="w-full max-w-[300px]">
-              <label className="block text-left font-semibold text-black mb-2">
-                New password
-              </label>
-              <input
-                type="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full bg-[#71898E] rounded-xl py-3 px-4 text-white"
-                required
-              />
-            </div>
+          <div>
+            <label className="field-label">Email address</label>
+            <input className="field-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          </div>
 
-            <div className="w-full max-w-[300px]">
-              <label className="block text-left font-semibold text-black mb-2">
-                Confirm new password
-              </label>
-              <input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full bg-[#71898E] rounded-xl py-3 px-4 text-white"
-                required
-              />
-            </div>
+          {error && <div className="field-error">{error}</div>}
 
-            {/* Only rendered when there's actually an error to show */}
-            {error && <p className="text-red-600 text-sm font-semibold">{error}</p>}
-
-            <button
-              type="submit"
-              className="mx-auto block w-2/5 rounded-xl bg-[#1C3B59] py-3 text-lg font-bold text-white
-                         hover:bg-[#15304a] transition"
-            >
-              Reset password
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <button type="submit" className="btn-navy" disabled={submitting}>
+              {submitting ? "Verifying…" : "Verify email"}
             </button>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
+
+      <Modal
+        open={showSuccess}
+        type="success"
+        title="Password reset successful"
+        actionLabel="Back to login"
+        onClose={() => navigate("/")}
+      />
     </div>
   );
 }

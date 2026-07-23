@@ -8,7 +8,7 @@ public class Cards
     public string Status { get; set; } = "Active";
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    public string PassengerId { get; set; } = string.Empty;
+    public int PassengerId { get; set; }
     public Passenger? Passenger { get; set; }=null!;
     public List<Transaction> Transactions { get; set; } = new();
 }

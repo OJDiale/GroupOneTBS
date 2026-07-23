@@ -7,7 +7,8 @@ public class RegisterPassengerDto
     [Required]
     [RegularExpression(@"^\d{13}$",
     ErrorMessage = "South African ID Number must be exactly 13 digits.")]
-    public string UserId { get; set; } = string.Empty;
+    public string IdNumber { get; set; } = string.Empty;
+
     [Required]
     [MaxLength(100)]
     public string Name { get; set; } = string.Empty;

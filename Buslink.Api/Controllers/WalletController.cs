@@ -23,17 +23,14 @@ public class WalletController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetWallet()
     {
-        var passengerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        if (string.IsNullOrEmpty(passengerId))
+        var passengerIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(passengerIdString))
             return Unauthorized();
-
+        int passengerId = int.Parse(passengerIdString);
         var wallet = await _context.Wallets
             .FirstOrDefaultAsync(x => x.PassengerId == passengerId);
-
         if (wallet == null)
             return NotFound();
-
         return Ok(new WalletDto
         {
             Balance = wallet.Balance,
@@ -41,19 +38,18 @@ public class WalletController : ControllerBase
         });
     }
     
+    
     // 👇 ADD THE TOPUP METHOD
     
 [HttpPost("topup")]
 public async Task<IActionResult> TopUp(TopUpWalletDto dto)
 {
-    var passengerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-    if (string.IsNullOrEmpty(passengerId))
+    var passengerIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    if (string.IsNullOrEmpty(passengerIdString))
         return Unauthorized();
-
+    int passengerId = int.Parse(passengerIdString);
     var wallet = await _context.Wallets
         .FirstOrDefaultAsync(x => x.PassengerId == passengerId);
-
     if (wallet == null)
     {
         return NotFound(new
@@ -61,7 +57,6 @@ public async Task<IActionResult> TopUp(TopUpWalletDto dto)
             message = "Wallet not found."
         });
     }
-
     wallet.Balance += dto.Amount;
 
     await _context.SaveChangesAsync();
@@ -77,14 +72,12 @@ public async Task<IActionResult> TopUp(TopUpWalletDto dto)
 [HttpPost("payfare")]
 public async Task<IActionResult> PayFare(PayFareDto dto)
 {
-    var passengerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-    if (string.IsNullOrEmpty(passengerId))
+    var passengerIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    if (string.IsNullOrEmpty(passengerIdString))
         return Unauthorized();
-
+    int passengerId = int.Parse(passengerIdString);
     var wallet = await _context.Wallets
         .FirstOrDefaultAsync(w => w.PassengerId == passengerId);
-
     if (wallet == null)
     {
         return NotFound(new
@@ -92,7 +85,6 @@ public async Task<IActionResult> PayFare(PayFareDto dto)
             message = "Wallet not found."
         });
     }
-
     if (wallet.Balance < dto.Fare)
     {
         return BadRequest(new
@@ -100,18 +92,16 @@ public async Task<IActionResult> PayFare(PayFareDto dto)
             message = "Insufficient wallet balance."
         });
     }
-
     wallet.Balance -= dto.Fare;
-
     var transaction = new Transaction
-    {
-        PassengerId = passengerId,
-        WalletId = wallet.WalletId,
-        Amount = -dto.Fare,
-        TransactionType = "Fare",
-        Description = $"Bus fare ({dto.Route})",
-        BalanceAfter = wallet.Balance
-    };
+{
+    PassengerId = passengerId.ToString(),   // convert here
+    WalletId = wallet.WalletId,
+    Amount = -dto.Fare,
+    TransactionType = "Fare",
+    Description = $"Bus fare ({dto.Route})",
+    BalanceAfter = wallet.Balance
+};
 
     _context.Transactions.Add(transaction);
 

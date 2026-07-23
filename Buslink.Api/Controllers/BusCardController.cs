@@ -22,10 +22,13 @@ public class BusCardController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetCard()
     {
-        var passengerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var passengerIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        if (string.IsNullOrEmpty(passengerId))
+        if (string.IsNullOrEmpty(passengerIdString))
             return Unauthorized();
+
+        // Convert the token's string value to int to match Cards.PassengerId
+        int passengerId = int.Parse(passengerIdString);
 
         var card = await _context.Cards
             .FirstOrDefaultAsync(c => c.PassengerId == passengerId);

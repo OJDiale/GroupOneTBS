@@ -5,7 +5,7 @@ public class Wallet
     public int WalletId { get; set; }
 
     // Each passenger has one wallet
-    public string PassengerId { get; set; } = string.Empty;
+    public int PassengerId { get; set; }
 
     public decimal Balance { get; set; } = 0.00m;
 

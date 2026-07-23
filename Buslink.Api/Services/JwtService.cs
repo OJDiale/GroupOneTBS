@@ -19,11 +19,12 @@ public class JwtService
     {
         var claims = new[]
         {
-        new Claim(ClaimTypes.NameIdentifier, passenger.UserId),
+        // Claim values must be strings, so convert the int UserId with .ToString()
+        new Claim(ClaimTypes.NameIdentifier, passenger.UserId.ToString()),
         new Claim(ClaimTypes.Name, passenger.Name),
         new Claim(ClaimTypes.Email, passenger.Email),
 
-        new Claim(JwtRegisteredClaimNames.Sub, passenger.UserId)
+        new Claim(JwtRegisteredClaimNames.Sub, passenger.UserId.ToString())
     };
 
         var key = new SymmetricSecurityKey(

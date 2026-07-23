@@ -56,7 +56,7 @@ public class AuthController : ControllerBase
             });
         }
         bool idExists = await _context.Passengers
-              .AnyAsync(x => x.UserId == dto.UserId);
+              .AnyAsync(x => x.IdNumber == dto.IdNumber);
 
         if (idExists)
         {
@@ -68,7 +68,7 @@ public class AuthController : ControllerBase
 
         var passenger = new Passenger
         {
-            UserId = dto.UserId,
+            IdNumber = dto.IdNumber,
             Name = dto.Name,
             Surname = dto.Surname,
             Email = dto.Email,
@@ -79,6 +79,7 @@ public class AuthController : ControllerBase
             _passwordHasher.HashPassword(passenger, dto.Password);
 
         _context.Passengers.Add(passenger);
+        await _context.SaveChangesAsync(); // Save first so passenger.UserId gets auto-generated before we use it below
 
         var busCard = new Cards
         {
@@ -88,11 +89,8 @@ public class AuthController : ControllerBase
             Status = "Active"
         };
 
-
-
         _context.Cards.Add(busCard);
 
-        // 👇 ADD wallet HERE
         var wallet = new Wallet
         {
             PassengerId = passenger.UserId,
@@ -143,10 +141,10 @@ public class AuthController : ControllerBase
 
         string token = _jwtService.GenerateToken(passenger);
 
-        var response = new LoginResponseDto
+       var response = new LoginResponseDto
         {
             Token = token,
-            UserId = passenger.UserId,
+            UserId = passenger.UserId.ToString(), // Convert int to string to match LoginResponseDto's expected type
             Name = passenger.Name,
             Email = passenger.Email
         };
@@ -165,8 +163,11 @@ public class AuthController : ControllerBase
             return Unauthorized();
         }
 
+        // userId comes from the token as a string; convert it to int to match Passenger.UserId
+        int parsedUserId = int.Parse(userId);
+
         var passenger = await _context.Passengers
-            .FirstOrDefaultAsync(x => x.UserId == userId);
+            .FirstOrDefaultAsync(x => x.UserId == parsedUserId);
 
         if (passenger == null)
         {

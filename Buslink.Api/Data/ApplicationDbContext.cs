@@ -14,6 +14,8 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Passenger> Passengers => Set<Passenger>();
     public DbSet<Cards> Cards => Set<Cards>();
+    
+    public DbSet<Wallet> Wallets => Set<Wallet>();
     public DbSet<Transaction> Transactions => Set<Transaction>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -78,6 +80,47 @@ public class ApplicationDbContext : DbContext
         .WithOne(passenger => passenger.Card)
         .HasForeignKey<Cards>(card => card.PassengerId)
         .HasPrincipalKey<Passenger>(passenger => passenger.UserId);
+});
+
+//  
+modelBuilder.Entity<Wallet>(entity =>
+{
+    entity.HasKey(x => x.WalletId);
+
+    entity.Property(x => x.Balance)
+          .HasPrecision(10, 2);
+
+    entity.HasOne(x => x.Passenger)
+          .WithOne(x => x.Wallet)
+          .HasForeignKey<Wallet>(x => x.PassengerId)
+          .HasPrincipalKey<Passenger>(x => x.UserId);
+});
+
+modelBuilder.Entity<Transaction>(entity =>
+{
+    entity.HasKey(t => t.TransactionId);
+
+    entity.Property(t => t.Amount)
+          .HasPrecision(10, 2);
+
+    entity.Property(t => t.BalanceAfter)
+          .HasPrecision(10, 2);
+
+    entity.Property(t => t.TransactionType)
+          .HasMaxLength(20)
+          .IsRequired();
+
+    entity.Property(t => t.Description)
+          .HasMaxLength(200);
+
+    entity.HasOne(t => t.Wallet)
+          .WithMany(w => w.Transactions)
+          .HasForeignKey(t => t.WalletId);
+
+    entity.HasOne(t => t.Passenger)
+          .WithMany(p => p.Transactions)
+          .HasForeignKey(t => t.PassengerId)
+          .HasPrincipalKey(p => p.UserId);
 });
     }
 }

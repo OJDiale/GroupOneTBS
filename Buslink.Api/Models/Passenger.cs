@@ -18,4 +18,7 @@ public class Passenger
     public DateTime CreatedAt { get; set; } = DateTime.Now;
 
     public Cards? Card { get; set; }
+    
+    public Wallet? Wallet { get; set; }
+    public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Buslink.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260722123701_AddBusCard")]
-    partial class AddBusCard
+    [Migration("20260723054451_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Buslink.Api.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("Buslink.Api.Models.Card", b =>
+            modelBuilder.Entity("Buslink.Api.Models.Cards", b =>
                 {
                     b.Property<int>("CardId")
                         .ValueGeneratedOnAdd()
@@ -62,7 +62,7 @@ namespace Buslink.Api.Migrations
                     b.HasIndex("PassengerId")
                         .IsUnique();
 
-                    b.ToTable("Card");
+                    b.ToTable("Cards");
                 });
 
             modelBuilder.Entity("Buslink.Api.Models.Passenger", b =>
@@ -113,41 +113,86 @@ namespace Buslink.Api.Migrations
 
             modelBuilder.Entity("Buslink.Api.Models.Transaction", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("TransactionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("TransactionId"));
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(65,30)");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
-                    b.Property<int>("CardId")
+                    b.Property<decimal>("BalanceAfter")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<int?>("CardsCardId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("PaymentMethod")
+                    b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
-                    b.Property<string>("Status")
+                    b.Property<string>("PassengerId")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(13)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("TransactionType")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
-                    b.HasIndex("CardId");
+                    b.Property<int>("WalletId")
+                        .HasColumnType("int");
 
-                    b.ToTable("Transaction");
+                    b.HasKey("TransactionId");
+
+                    b.HasIndex("CardsCardId");
+
+                    b.HasIndex("PassengerId");
+
+                    b.HasIndex("WalletId");
+
+                    b.ToTable("Transactions");
                 });
 
-            modelBuilder.Entity("Buslink.Api.Models.Card", b =>
+            modelBuilder.Entity("Buslink.Api.Models.Wallet", b =>
+                {
+                    b.Property<int>("WalletId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("WalletId"));
+
+                    b.Property<decimal>("Balance")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("PassengerId")
+                        .IsRequired()
+                        .HasColumnType("varchar(13)");
+
+                    b.HasKey("WalletId");
+
+                    b.HasIndex("PassengerId")
+                        .IsUnique();
+
+                    b.ToTable("Wallets");
+                });
+
+            modelBuilder.Entity("Buslink.Api.Models.Cards", b =>
                 {
                     b.HasOne("Buslink.Api.Models.Passenger", "Passenger")
                         .WithOne("Card")
-                        .HasForeignKey("Buslink.Api.Models.Card", "PassengerId")
+                        .HasForeignKey("Buslink.Api.Models.Cards", "PassengerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -156,16 +201,39 @@ namespace Buslink.Api.Migrations
 
             modelBuilder.Entity("Buslink.Api.Models.Transaction", b =>
                 {
-                    b.HasOne("Buslink.Api.Models.Card", "Card")
+                    b.HasOne("Buslink.Api.Models.Cards", null)
                         .WithMany("Transactions")
-                        .HasForeignKey("CardId")
+                        .HasForeignKey("CardsCardId");
+
+                    b.HasOne("Buslink.Api.Models.Passenger", "Passenger")
+                        .WithMany("Transactions")
+                        .HasForeignKey("PassengerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Card");
+                    b.HasOne("Buslink.Api.Models.Wallet", "Wallet")
+                        .WithMany("Transactions")
+                        .HasForeignKey("WalletId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Passenger");
+
+                    b.Navigation("Wallet");
                 });
 
-            modelBuilder.Entity("Buslink.Api.Models.Card", b =>
+            modelBuilder.Entity("Buslink.Api.Models.Wallet", b =>
+                {
+                    b.HasOne("Buslink.Api.Models.Passenger", "Passenger")
+                        .WithOne("Wallet")
+                        .HasForeignKey("Buslink.Api.Models.Wallet", "PassengerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Passenger");
+                });
+
+            modelBuilder.Entity("Buslink.Api.Models.Cards", b =>
                 {
                     b.Navigation("Transactions");
                 });
@@ -173,6 +241,15 @@ namespace Buslink.Api.Migrations
             modelBuilder.Entity("Buslink.Api.Models.Passenger", b =>
                 {
                     b.Navigation("Card");
+
+                    b.Navigation("Transactions");
+
+                    b.Navigation("Wallet");
+                });
+
+            modelBuilder.Entity("Buslink.Api.Models.Wallet", b =>
+                {
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }

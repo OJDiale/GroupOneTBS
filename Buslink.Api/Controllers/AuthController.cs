@@ -92,6 +92,15 @@ public class AuthController : ControllerBase
 
         _context.Cards.Add(busCard);
 
+        // 👇 ADD wallet HERE
+        var wallet = new Wallet
+        {
+            PassengerId = passenger.UserId,
+            Balance = 0.00m
+        };
+
+        _context.Wallets.Add(wallet);
+
         await _context.SaveChangesAsync();
 
         return Ok(new

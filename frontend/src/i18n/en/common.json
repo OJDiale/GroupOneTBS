@@ -1,0 +1,13 @@
+{
+  "footer": "© 2026 TshwaneRide. All rights reserved.",
+  "language": "Language",
+  "login": "Login",
+  "register": "Register",
+  "navDashboard": "Dashboard",
+  "navTopUp": "Top up",
+  "navTransactions": "Transactions",
+  "navMyCard": "My card",
+  "navLostItem": "Lost item",
+  "navSettings": "Profile settings",
+  "logout": "Log out"
+}

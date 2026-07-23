@@ -1,0 +1,14 @@
+
+{
+  "heading": "Netefatsa",
+  "sentTo": "Re romeletse",
+  "sentToLinkedEmail": "Re rometse OTP ya dinomoro tse 6 kwa emaileng e e golaganeng le nomoro ya ID e o e tsentseng.",
+  "digitCode": "khoutu ya dinomoro go",
+  "enterBelow": "E tsenye fa tlase",
+  "toVerify": "go netefatsa akhaonto ya gago.",
+  "toReset": "go baakanya password ya gago.",
+  "enterOtp": "Tsenya OTP",
+  "submit": "Netefatsa Akhaonto",
+  "notReceived": "Ga o a bona khoutu? Khoutu e tla nna teng mo",
+  "resend": "ROMELA OTP GAPE"
+}

@@ -1,0 +1,13 @@
+{
+  "heading": "Report a lost item",
+  "subtitle": "Report a lost item or check the status of your existing report.",
+  "emailLabel": "Enter your email for further communication",
+  "descriptionLabel": "Describe your item below",
+  "submit": "Submit query",
+  "successHeading": "Query was logged successfully!",
+  "successMessage": "We will notify you once the item has been found.",
+  "referenceNumber": "Reference Number:",
+  "status": "Status:",
+  "pendingStatus": "Pending",
+  "backToDashboard": "Back to dashboard"
+}

@@ -1,0 +1,14 @@
+
+{
+  "heading": "Qinisekisa",
+  "sentTo": "Sithumele",
+  "sentToLinkedEmail": "Sithumele i-OTP enamadijithi angu-6 ku-imeyili exhunywe nenombolo kamazisi oyifakile.",
+  "digitCode": "ikhodi yezinombolo ku",
+  "enterBelow": "Yifake ngezansi",
+  "toVerify": "ukuqinisekisa i-akhawunti yakho.",
+  "toReset": "ukusetha kabusha iphasiwedi yakho.",
+  "enterOtp": "Faka i-OTP",
+  "submit": "Qinisekisa i-akhawunti",
+  "notReceived": "Awutholanga ikhodi? Ikhodi izotholakala ku",
+  "resend": "THUMELA KABUSHA I-OTP"
+}

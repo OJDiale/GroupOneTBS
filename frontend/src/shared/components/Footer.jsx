@@ -1,7 +1,12 @@
-export default function Header({ variant = "guest" }) {
+// shared/components/Footer.jsx
+import { useTranslation } from 'react-i18next';
+
+export default function Footer() {
+  const { t } = useTranslation('common');
+
   return (
-    <footer className="bg-[#1C3B59] py-8 text-center text-sm text-white">
-        <p>© 2026 TshwaneRide. All rights reserved.</p>
+    <footer className="bg-[#0f3d5c] py-4 text-center text-3xl text-white">
+      <p>{t('footer')}</p>
     </footer>
   );
 }

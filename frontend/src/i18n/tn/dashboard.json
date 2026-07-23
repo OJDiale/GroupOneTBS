@@ -1,0 +1,12 @@
+{
+  "greeting": "Dumela",
+  "welcomeBack": "O amogetswe gape, ke se se diragalang mo akhaontong ya gago.",
+  "cardDetails": "Dintlha tsa karata ya me",
+  "cardNumber": "Nomoro ya karata",
+  "cardBalance": "Madi a Karata",
+  "status": "Boemo",
+  "activeStatus": "E a dira",
+  "dangerMessage": "Ga o na madi a a lekaneng! O tlhoka bonnye R14.00 bakeng sa loeto lo lo khutshwane.",
+  "warningMessage": "Madi a gago a R{{balance}} a ka se go tshegetse loeto lo lo latelang. Tlatsa madi jaanong go tila go tshwarwa.",
+  "goodMessage": "Madi a gago a siame — o tshegeditswe loetong lwa selegae mo neteweking."
+}

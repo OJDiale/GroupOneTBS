@@ -1,16 +1,23 @@
 import { useState } from "react";
-import cityBck from '../../../resources/city-back.jpeg';
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import cityBck from "../../../resources/city-back.jpeg";
 
 export default function LoginPage() {
-  const [activeTab, setActiveTab] = useState("login");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+  const { t } = useTranslation("login");
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({ email, password, rememberMe });
+
+    // Replace with your backend login later
+    navigate("/dashboard");
   };
 
   return (
@@ -24,46 +31,50 @@ export default function LoginPage() {
     >
       <div className="flex flex-col items-center">
         {/* Large heading */}
-        <h1 className="mb-6 text-center text-6xl font-bold text-[#1C3B59] drop-shadow-lg pb-20">
-          Log In
+        <h1 className="text-center text-6xl font-bold text-[#0f3d5c] drop-shadow-lg pb-16">
+          {t("submit")}
         </h1>
 
-          <div className=" scale-125 rounded-[58px] bg-[#FCFDFE]/70 rounded-2xl shadow-xl shadow-emerald-900/5 border border-[10px] border-[#54A4AB] pt-12 pb-8 px-56" >
+        <div className="scale-100 rounded-[58px] bg-white/70 shadow-xl shadow-emerald-900/5 border-[10px] border-[#1cabb0] pt-12 pb-8 px-56">
 
-            {/* Heading */}
-            <h1 className="mt-2 mb-4 text-lg text-center italic font-bold text-[#707275] ">
-              Login to manage your card
-            </h1>
+          {/* Subtitle */}
+          <h2 className="mt-2 mb-4 text-lg text-center italic font-bold text-[#083335]">
+            {t("subtitle")}
+          </h2>
 
-            <form onSubmit={handleSubmit} className="space-y-5 flex flex-col items-center">
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-5 flex flex-col items-center"
+          >
 
-              {/* Email */}
-              <div className="relative">
-                <label className="block text--1xl font-semibold text-left text-black mb-2 ">
-                      Email Address
-                </label>
+            {/* Email */}
+            <div className="relative">
+              <label className="block font-semibold text-left text-black mb-2">
+                {t("email")}
+              </label>
 
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder=""
-                  className="relative w-[300px] bg-[#71898E] rounded-xl py-3 px-4 text-white placeholder:text-white"
-                />
-              </div>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder={t("email")}
+                className="w-[300px] bg-[#6b8a90] rounded-xl py-3 px-4 text-white placeholder:text-white"
+                required
+              />
+            </div>
 
-              {/* Password */}
-              <div className="relative">
+            {/* Password */}
+            <div className="relative">
               <label className="block text-xl font-semibold text-black mb-2">
-                Password
+                {t("password")}
               </label>
 
               <input
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder=""
-                className="w-[300px] bg-[#71898E] rounded-xl py-3 px-4 text-white placeholder:text-white"
+                placeholder={t("password")}
+                className="w-[300px] bg-[#6b8a90] rounded-xl py-3 px-4 text-white placeholder:text-white"
                 required
               />
 
@@ -73,46 +84,45 @@ export default function LoginPage() {
                     type="checkbox"
                     checked={showPassword}
                     onChange={() => setShowPassword(!showPassword)}
-                    className="accent-[#1C3B59]"
+                    className="accent-[#0f3d5c]"
                   />
-                  Show password
+                  {t("showPassword")}
                 </label>
               </div>
             </div>
 
             {/* Forgot Password */}
-<div className="w-full flex justify-center">
-  <a
-    href="/forgot-password"
-    className="text-lg font-semibold text-[#595a5a] hover:underline"
-  >
-    Forgot Password?
-  </a>
-</div>
-
-              {/* Submit */}
-              <button
-                type="submit"
-                className="mx-auto block w-2/5 rounded-xl bg-[#1C3B59] py-2 text-lg font-bold text-white hover:bg-[#418d9b] transition"
+            <div className="w-full flex justify-center">
+              <a
+                href="/forgot-password"
+                className="text-lg font-semibold text-[#083335] hover:underline"
               >
-                Log In
-              </button>
-            </form>
+                {t("forgotPassword")}
+              </a>
+            </div>
 
-            <div className="mt-4 text-center">
+            {/* Submit */}
+            <button
+              type="submit"
+              className="mx-auto block w-2/5 rounded-xl bg-[#0f3d5c] py-2 text-lg font-bold text-white hover:bg-[#0b3048] transition"
+            >
+              {t("submit")}
+            </button>
+          </form>
 
-        <p className="italic text-[#595a5a]">
-            Don't have an account?
-        </p>
+          <div className="mt-4 text-center">
+            <p className="italic text-[#083335]">
+              {t("noAccount")}
+            </p>
 
-        <a
-            href="/register"
-            className="mt-2 inline-block font-bold text-[#267FBF] hover:underline"
-        >
-            Register
-        </a>
+            <a
+              href="/register"
+              className="mt-2 inline-block font-bold text-[#3292d1] hover:underline"
+            >
+              {t("registerLink")}
+            </a>
+          </div>
 
-      </div>
         </div>
       </div>
     </div>

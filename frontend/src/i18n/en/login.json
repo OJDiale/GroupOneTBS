@@ -1,0 +1,10 @@
+{
+  "subtitle": "Login to manage your card",
+  "email": "Email Address",
+  "password": "Password",
+  "showPassword": "Show password",
+  "submit": "Log In",
+  "noAccount": "Don't have an account?",
+  "registerLink": "Register",
+  "forgotPassword": "Forgot password?"
+}

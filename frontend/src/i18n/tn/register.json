@@ -1,0 +1,19 @@
+{
+  "heading": "Simolola ka karata ya gago ya bese",
+  "title": "Ngwadisa",
+  "subtitle": "Simolola ka karata ya gago ya bese",
+  "firstName": "Leina la ntlha",
+  "lastName": "Sefane",
+  "idNumber": "Nomoro ya ID",
+  "email": "Aterese ya email",
+  "cellphone": "Nomoro ya mogala",
+  "password": "Password",
+  "confirmPassword": "Netefatsa password",
+  "agreeTerms": "Ke a dumela",
+  "termsLink": "melao le maemo",
+  "agree": "Ke dumelana le",
+  "terms": "melao le maemo",
+  "submit": "Tlhama akhaonto",
+  "agreeAlert": "Tsweetswee dumelana le melao le maemo.",
+  "success": "Akhaonto e tlhamilwe ka katlego!"
+}

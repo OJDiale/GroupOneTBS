@@ -1,0 +1,20 @@
+
+{
+  "heading": "Qala nekhadi lakho lebhasi",
+  "title": "Bhalisa",
+  "subtitle": "Qala ngekhadi lakho lebhasi",
+  "firstName": "Igama lokuqala",
+  "lastName": "Isibongo",
+  "idNumber": "Inombolo ka-ID",
+  "email": "Ikheli le-imeyili",
+  "cellphone": "Inombolo yeselula",
+  "password": "Iphasiwedi",
+  "confirmPassword": "Qinisekisa iphasiwedi",
+  "agreeTerms": "Ngiyavuma",
+  "termsLink": "imigomo nemibandela",
+  "agree": "Ngiyavumelana",
+  "terms": "nemigomo nemibandela",
+  "submit": "Dala i-akhawunti",
+  "agreeAlert": "Sicela uvumelane nemigomo nemibandela.",
+  "success": "I-akhawunti idalwe ngempumelelo!"
+}

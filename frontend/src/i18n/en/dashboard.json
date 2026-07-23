@@ -1,0 +1,13 @@
+
+{
+  "greeting": "Good afternoon",
+  "welcomeBack": "Welcome back, here's what's happening with your account.",
+  "cardDetails": "My card details",
+  "cardNumber": "Card number",
+  "cardBalance": "Card Balance",
+  "status": "Status",
+  "activeStatus": "Active",
+  "dangerMessage": "You have insufficient funds! You need at least R14.00 for the shortest trip.",
+  "warningMessage": "Your R{{balance}} balance may not cover your next trip. Top up now to avoid being stuck.",
+  "goodMessage": "Your balance is good — you're covered for a local trip on the network."
+}

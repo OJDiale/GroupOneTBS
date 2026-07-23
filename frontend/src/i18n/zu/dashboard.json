@@ -1,0 +1,13 @@
+
+{
+  "greeting": "Sanibonani",
+  "welcomeBack": "Siyakwamukela futhi, nakhu okwenzekayo ku-akhawunti yakho.",
+  "cardDetails": "Imininingwane yekhadi lami",
+  "cardNumber": "Inombolo yekhadi",
+  "cardBalance": "Ibhalansi Yekhadi",
+  "status": "Isimo",
+  "activeStatus": "Kuyasebenza",
+  "dangerMessage": "Awunayo imali eyanele! Udinga okungenani u-R14.00 wohambo olufushane.",
+  "warningMessage": "Ibhalansi yakho ye-R{{balance}} ingase ingasibekezeli uhambo lwakho olulandelayo. Faka imali manje ukuze ungabambeki.",
+  "goodMessage": "Ibhalansi yakho ilungile — uvikelekile ohambweni lwendawo enethiwekhini."
+}

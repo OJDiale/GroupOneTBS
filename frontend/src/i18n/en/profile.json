@@ -1,0 +1,15 @@
+{
+  "heading": "Profile settings",
+  "subtitle": "View and update your account information.",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "idNumber": "ID number",
+  "email": "Email",
+  "cellphone": "Cellphone",
+  "password": "Password",
+  "editInformation": "Edit information",
+  "editHeading": "Edit profile",
+  "editSubtitle": "Update your personal details below.",
+  "cancel": "Cancel",
+  "save": "Save"
+}

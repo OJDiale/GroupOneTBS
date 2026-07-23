@@ -1,0 +1,14 @@
+
+{
+  "heading": "Verify",
+  "sentTo": "We sent a",
+  "sentToLinkedEmail": "We sent a 6 digit OTP to the email linked to the ID number you entered.",
+  "digitCode": "digit code to",
+  "enterBelow": "Enter it below",
+  "toVerify": "to verify your account.",
+  "toReset": "to reset your password.",
+  "enterOtp": "Enter OTP",
+  "submit": "Verify Account",
+  "notReceived": "Didn't receive the code? Code available in",
+  "resend": "RESEND OTP"
+}

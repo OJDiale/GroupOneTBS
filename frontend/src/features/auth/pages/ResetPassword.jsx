@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lock } from 'lucide-react';
 import cityBck from '../../../resources/city-back.jpeg';
+import lockIcon from '../../../resources/icons/lock.svg';
 
 export default function ResetPassword() {
   const navigate = useNavigate();
@@ -37,14 +37,14 @@ export default function ResetPassword() {
       }}
     >
       <div className="flex flex-col items-center w-full">
-        <h1 className="mb-6 text-center text-6xl font-bold text-[#1C3B59] drop-shadow-lg pb-8">
+        <h1 className="mb-6 text-center text-6xl font-bold text-[#0f3d5c] drop-shadow-lg pb-8">
           Create a new password
         </h1>
 
-        <div className="w-full max-w-lg rounded-[40px] bg-white border-[10px] border-[#54A4AB] shadow-xl p-8 sm:p-10 flex flex-col items-center">
-          <Lock className="w-14 h-14 text-[#f59e0b] mb-4" fill="#f59e0b" strokeWidth={1.5} />
+        <div className="w-full max-w-lg rounded-[40px] bg-white/70 border-[10px] border-[#1cabb0] shadow-xl p-8 sm:p-10 flex flex-col items-center">
+          <img src={lockIcon} alt="" className="mb-4 h-20 w-20" />
 
-          <p className="text-center font-bold text-[#1C3B59] mb-8 max-w-md">
+          <p className="text-center font-bold text-[#083335] mb-8 max-w-md">
             Your identity has been verified. Choose a strong new password for
             your TshwaneRide account.
           </p>
@@ -58,7 +58,7 @@ export default function ResetPassword() {
                 type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full bg-[#71898E] rounded-xl py-3 px-4 text-white"
+                className="w-full bg-[#6b8a90] rounded-xl py-3 px-4 text-white"
                 required
               />
             </div>
@@ -71,7 +71,7 @@ export default function ResetPassword() {
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full bg-[#71898E] rounded-xl py-3 px-4 text-white"
+                className="w-full bg-[#6b8a90] rounded-xl py-3 px-4 text-white"
                 required
               />
             </div>
@@ -81,8 +81,8 @@ export default function ResetPassword() {
 
             <button
               type="submit"
-              className="mx-auto block w-2/5 rounded-xl bg-[#1C3B59] py-3 text-lg font-bold text-white
-                         hover:bg-[#15304a] transition"
+              className="mx-auto block w-2/5 rounded-xl bg-[#0f3d5c] py-3 text-lg font-bold text-white
+                         hover:bg-[#0b3048] transition"
             >
               Reset password
             </button>

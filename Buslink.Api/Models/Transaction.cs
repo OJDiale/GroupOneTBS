@@ -5,7 +5,7 @@ public class Transaction
     public int TransactionId { get; set; }
 
     // Foreign Keys
-    public string PassengerId { get; set; } = string.Empty;
+    public int PassengerId { get; set; }
 
     public int WalletId { get; set; }
 

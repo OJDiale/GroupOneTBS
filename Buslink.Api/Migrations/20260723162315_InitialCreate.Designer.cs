@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Buslink.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260723054451_InitialCreate")]
+    [Migration("20260723162315_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -45,9 +45,8 @@ namespace Buslink.Api.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("PassengerId")
-                        .IsRequired()
-                        .HasColumnType("varchar(13)");
+                    b.Property<int>("PassengerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -67,9 +66,12 @@ namespace Buslink.Api.Migrations
 
             modelBuilder.Entity("Buslink.Api.Models.Passenger", b =>
                 {
-                    b.Property<string>("UserId")
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(13)
-                        .HasColumnType("varchar(13)");
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("UserId"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime");
@@ -78,6 +80,10 @@ namespace Buslink.Api.Migrations
                         .IsRequired()
                         .HasMaxLength(191)
                         .HasColumnType("varchar(191)");
+
+                    b.Property<string>("IdNumber")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("IsVerified")
                         .ValueGeneratedOnAdd()
@@ -89,10 +95,31 @@ namespace Buslink.Api.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
+                    b.Property<int>("OtpAttempts")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OtpCodeHash")
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
+
+                    b.Property<DateTime?>("OtpExpiresAt")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("OtpPurpose")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
+
+                    b.Property<DateTime?>("PasswordResetTokenExpiresAt")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("PasswordResetTokenHash")
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
 
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(10)
@@ -138,9 +165,8 @@ namespace Buslink.Api.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
-                    b.Property<string>("PassengerId")
-                        .IsRequired()
-                        .HasColumnType("varchar(13)");
+                    b.Property<int>("PassengerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("TransactionType")
                         .IsRequired()
@@ -176,9 +202,8 @@ namespace Buslink.Api.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("PassengerId")
-                        .IsRequired()
-                        .HasColumnType("varchar(13)");
+                    b.Property<int>("PassengerId")
+                        .HasColumnType("int");
 
                     b.HasKey("WalletId");
 

@@ -55,6 +55,15 @@ public class ApplicationDbContext : DbContext
             entity.Property(passenger => passenger.IsVerified)
                 .HasDefaultValue(false);
 
+            entity.Property(passenger => passenger.OtpCodeHash)
+                .HasMaxLength(64);
+
+            entity.Property(passenger => passenger.OtpPurpose)
+                .HasMaxLength(50);
+
+            entity.Property(passenger => passenger.PasswordResetTokenHash)
+                .HasMaxLength(64);
+
 
         });
 

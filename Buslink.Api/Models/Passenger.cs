@@ -16,6 +16,14 @@ public class Passenger
     public bool IsVerified { get; set; } = false;
     public DateTime CreatedAt { get; set; } = DateTime.Now;
 
+    // Password-reset OTP state. Codes and reset tokens are stored only as hashes.
+    public string? OtpCodeHash { get; set; }
+    public DateTime? OtpExpiresAt { get; set; }
+    public string? OtpPurpose { get; set; }
+    public int OtpAttempts { get; set; }
+    public string? PasswordResetTokenHash { get; set; }
+    public DateTime? PasswordResetTokenExpiresAt { get; set; }
+
     public Cards? Card { get; set; }
     public Wallet? Wallet { get; set; }
     public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();

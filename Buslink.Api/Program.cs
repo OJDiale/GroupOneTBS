@@ -6,6 +6,7 @@ using System.Text;
 using Buslink.Api.Data;
 using Buslink.Api.Models;
 using Buslink.Api.Services;
+using Buslink.Api.Settings;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +27,10 @@ builder.Services.AddScoped<
     IPasswordHasher<Passenger>,
     PasswordHasher<Passenger>>();
 builder.Services.AddScoped<JwtService>();
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddScoped<IOtpService, OtpService>();
+builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 

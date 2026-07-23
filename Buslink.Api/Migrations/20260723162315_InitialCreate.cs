@@ -19,7 +19,9 @@ namespace Buslink.Api.Migrations
                 name: "Passengers",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "varchar(13)", maxLength: 13, nullable: false)
+                    UserId = table.Column<int>(type: "int", maxLength: 13, nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    IdNumber = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -32,7 +34,16 @@ namespace Buslink.Api.Migrations
                     PasswordHash = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     IsVerified = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime", nullable: false),
+                    OtpCodeHash = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    OtpExpiresAt = table.Column<DateTime>(type: "datetime", nullable: true),
+                    OtpPurpose = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    OtpAttempts = table.Column<int>(type: "int", nullable: false),
+                    PasswordResetTokenHash = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PasswordResetTokenExpiresAt = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -52,8 +63,7 @@ namespace Buslink.Api.Migrations
                     Status = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CreatedAt = table.Column<DateTime>(type: "datetime", nullable: false),
-                    PassengerId = table.Column<string>(type: "varchar(13)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    PassengerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -73,8 +83,7 @@ namespace Buslink.Api.Migrations
                 {
                     WalletId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    PassengerId = table.Column<string>(type: "varchar(13)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PassengerId = table.Column<int>(type: "int", nullable: false),
                     Balance = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
@@ -96,8 +105,7 @@ namespace Buslink.Api.Migrations
                 {
                     TransactionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    PassengerId = table.Column<string>(type: "varchar(13)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PassengerId = table.Column<int>(type: "int", nullable: false),
                     WalletId = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
                     TransactionType = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)

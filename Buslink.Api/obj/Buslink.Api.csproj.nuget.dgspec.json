@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\omphi\\Desktop\\School\\4th Year\\2nd Semester\\ICEP\\Second Project\\Git Clone\\GroupOneTBS\\Buslink.Api\\Buslink.Api.csproj": {}
+    "C:\\Users\\omphi\\Desktop\\School\\4th Year\\2nd Semester\\ICEP\\Second Project\\Git Clone - OTP Integrated\\GroupOneTBS\\Buslink.Api\\Buslink.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\omphi\\Desktop\\School\\4th Year\\2nd Semester\\ICEP\\Second Project\\Git Clone\\GroupOneTBS\\Buslink.Api\\Buslink.Api.csproj": {
+    "C:\\Users\\omphi\\Desktop\\School\\4th Year\\2nd Semester\\ICEP\\Second Project\\Git Clone - OTP Integrated\\GroupOneTBS\\Buslink.Api\\Buslink.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\omphi\\Desktop\\School\\4th Year\\2nd Semester\\ICEP\\Second Project\\Git Clone\\GroupOneTBS\\Buslink.Api\\Buslink.Api.csproj",
+        "projectUniqueName": "C:\\Users\\omphi\\Desktop\\School\\4th Year\\2nd Semester\\ICEP\\Second Project\\Git Clone - OTP Integrated\\GroupOneTBS\\Buslink.Api\\Buslink.Api.csproj",
         "projectName": "Buslink.Api",
-        "projectPath": "C:\\Users\\omphi\\Desktop\\School\\4th Year\\2nd Semester\\ICEP\\Second Project\\Git Clone\\GroupOneTBS\\Buslink.Api\\Buslink.Api.csproj",
+        "projectPath": "C:\\Users\\omphi\\Desktop\\School\\4th Year\\2nd Semester\\ICEP\\Second Project\\Git Clone - OTP Integrated\\GroupOneTBS\\Buslink.Api\\Buslink.Api.csproj",
         "packagesPath": "C:\\Users\\omphi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\omphi\\Desktop\\School\\4th Year\\2nd Semester\\ICEP\\Second Project\\Git Clone\\GroupOneTBS\\Buslink.Api\\obj\\",
+        "outputPath": "C:\\Users\\omphi\\Desktop\\School\\4th Year\\2nd Semester\\ICEP\\Second Project\\Git Clone - OTP Integrated\\GroupOneTBS\\Buslink.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\omphi\\AppData\\Roaming\\NuGet\\NuGet.Config"

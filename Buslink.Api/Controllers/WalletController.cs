@@ -95,7 +95,7 @@ public async Task<IActionResult> PayFare(PayFareDto dto)
     wallet.Balance -= dto.Fare;
     var transaction = new Transaction
 {
-    PassengerId = passengerId.ToString(),   // convert here
+    PassengerId = passengerId, 
     WalletId = wallet.WalletId,
     Amount = -dto.Fare,
     TransactionType = "Fare",
